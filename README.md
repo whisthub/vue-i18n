@@ -13,4 +13,4 @@ On top of that, Vue explicitly states that Options API isn't going anywhere, and
 
 This makes the new version of [vue-i18n](https://www.npmjs.com/package/vue-i18n) pretty much useless in large codebases and even an hindrance to migrating some components to the composition API as you can't migrate step by step.
 
-The goal of `@whistub/vue-i18` is to provide the same basic functionality that [vue-i18n](https://www.npmjs.com/package/vue-i18n) offers, but by explicitly allowing it to be used both with the options and composition api.
+The goal of `@whistub/vue-i18n` is to provide the same basic functionality that [vue-i18n](https://www.npmjs.com/package/vue-i18n) offers, but by explicitly allowing it to be used both with the options and composition api.
