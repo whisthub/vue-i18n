@@ -2,7 +2,13 @@
   "name": "@whisthub/vue-i18n",
   "version": "0.0.1-alpha",
   "description": "Simple internationalization plugin for Vue, modeled after vue-i18n",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "imports": {
+    "#lib/*": "./lib/*"
+  },
   "scripts": {
     "test": "mocha"
   },
@@ -20,5 +26,12 @@
     "url": "https://github.com/whisthub/vue-i18n/issues"
   },
   "homepage": "https://github.com/whisthub/vue-i18n#readme",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@whisthub/eslint-config": "^3.0.0",
+    "chai": "^5.1.1",
+    "eslint": "^8.57.0",
+    "mocha": "^10.4.0",
+    "vue": "^3.4.27"
+  }
 }
