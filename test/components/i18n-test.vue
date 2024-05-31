@@ -36,8 +36,8 @@ const { t } = useI18n({
 		nl: {
 			named: i => i`Hallo ${'name'}!`,
 			bananas: [
-				i => i`Geen bananen`,
-				i => i`Eén banaan`,
+				'Geen bananen',
+				'Eén banaan',
 				i => i`${'n'} bananen`,
 			],
 		},

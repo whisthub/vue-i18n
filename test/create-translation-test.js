@@ -80,14 +80,14 @@ describe('The translation factory', function() {
 			messages: {
 				en: {
 					banana: [
-						i => i`One banana`,
+						'One banana',
 						i => i`${'n'} bananas`,
 					],
 				},
 				nl: {
 					banana: [
 						i => i`Geen bananen in ${'where'}`,
-						i => i`Eén banaan`,
+						'Eén banaan',
 						i => i`${'count'} bananen`,
 					],
 				},
