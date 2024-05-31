@@ -72,6 +72,40 @@ describe('The translation factory', function() {
 
 	});
 
+	it('supports pluralization & interpolation', function() {
+
+		const i18n = this.setup({ locale: 'en' });
+
+		const t = createTranslation(i18n, {
+			messages: {
+				en: {
+					banana: [
+						i => i`One banana`,
+						i => i`${'n'} bananas`,
+					],
+				},
+				nl: {
+					banana: [
+						i => i`Geen bananen in ${'where'}`,
+						i => i`Eén banaan`,
+						i => i`${'count'} bananen`,
+					],
+				},
+			},
+		});
+
+		expect(t('banana', 1)).to.equal('One banana');
+		expect(t('banana', 5)).to.equal('5 bananas');
+		expect(t('banana', 5, { n: 'Too many' })).to.equal('Too many bananas');
+
+		i18n.locale = 'nl';
+		expect(t('banana', 0, { where: 'mijn mond' })).to.equal('Geen bananen in mijn mond');
+		expect(t('banana', 1)).to.equal('Eén banaan');
+		expect(t('banana', 10)).to.equal('10 bananen');
+		expect(t('banana', 100, { count: 'Te veel' })).to.equal('Te veel bananen');
+
+	});
+
 	it('prefers the country code', function() {
 
 		const i18n = this.setup({
