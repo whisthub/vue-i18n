@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import vm from 'node:vm';
 import parse from '#lib/compiler/parse.js';
 import compile from '#lib/compiler/compile.js';
+import jit from '#lib/compiler/jit.js';
 import { evaluate } from '#lib/create-translation.js';
 
 describe('The parse function', function() {
@@ -114,6 +115,39 @@ describe('The compile function', function() {
 		expect(value[1]).to.be.a('function');
 
 		expect(evaluate(value[1], { n: 13 })).to.equal('13 cards');
+
+	});
+
+});
+
+describe('The jit interpreter', function() {
+
+	it('a single message', function() {
+
+		let message = 'This is a message';
+		let fn = jit(message);
+		expect(evaluate(fn)).to.equal(message);
+
+	});
+
+	it('an interpolated message', function() {
+
+		let message = 'Hello {name}!';
+		let fn = jit(message);
+		expect(evaluate(fn, { name: 'Whisthub' })).to.equal('Hello Whisthub!');
+
+	});
+
+	it('a pluralized message', function() {
+
+		let message = 'One card | {n} cards';
+		let fn = jit(message);
+		expect(fn).to.be.an('array');
+		expect(fn).to.have.length(2);
+		expect(fn[0]).to.be.a('string');
+		expect(fn[1]).to.be.a('function');
+
+		expect(evaluate(fn[1], { n: 13 })).to.equal('13 cards');
 
 	});
 
