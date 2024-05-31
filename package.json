@@ -1,0 +1,24 @@
+{
+  "name": "@whisthub/vue-i18n",
+  "version": "0.0.1-alpha",
+  "description": "Simple internationalization plugin for Vue, modeled after vue-i18n",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whisthub/vue-i18n.git"
+  },
+  "keywords": [
+    "vue",
+    "i18n"
+  ],
+  "author": "Sebastiaan Marynissen <sebastiaan@whisthub.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whisthub/vue-i18n/issues"
+  },
+  "homepage": "https://github.com/whisthub/vue-i18n#readme",
+  "type": "module"
+}
