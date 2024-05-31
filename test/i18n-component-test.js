@@ -22,10 +22,10 @@ describe('The <i18n-t> component', function() {
 		};
 	});
 
-	it.only('is mounted correctly', function() {
+	it('is mounted correctly', function() {
 
 		let { vm } = this.mount();
-		console.log(vm.$el.querySelector('.bare').innerHTML);
+		expect(vm.$el.querySelector('.greeting').innerHTML).to.equal('Hello <span>Whisthub</span>!');
 
 	});
 

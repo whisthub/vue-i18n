@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="bare">{{ t('greeting', ['Whisthub!']) }}</div>
+		<div class="bare">{{ t('greeting', ['Whisthub']) }}</div>
 		<div class="greeting">
 			<i18n-t keypath="greeting">
 				<span>Whisthub</span>
@@ -14,7 +14,9 @@
 import { useI18n } from '@whisthub/vue-i18n';
 const { t } = useI18n({
 	messages: {
-		en: {},
+		en: {
+			greeting: i => i`Hello ${0}!`,
+		},
 	},
 });
 </script>
