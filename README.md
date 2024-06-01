@@ -301,6 +301,7 @@ Some are omitted intentionally, while others might still be added in the future.
 PRs are welcome of course if you're missing a certain feature.
 
  - No [number](https://vue-i18n.intlify.dev/guide/essentials/number.html) or [date](https://vue-i18n.intlify.dev/guide/essentials/datetime) formatting.
+ - No [custom pluralization](https://vue-i18n.intlify.dev/guide/essentials/pluralization.html#custom-pluralization). I only use English, French and Dutch, so I do not have the need for languages that have custom pluralization rules like Russian for example. I'm open to adding this if you need it, so PRs are welcome.
  - No modifiers in messages.
  - No [custom `v-t` directive](https://vue-i18n.intlify.dev/guide/advanced/directive)
  - No support for [custom compilers](https://vue-i18n.intlify.dev/guide/advanced/format.html). You can still precompile your messages in different formats manually to either a string, a tagged function ``i => i`Hello ${'name'}!` `` or an array of strings and functions for pluralization.
