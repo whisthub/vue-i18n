@@ -37,5 +37,8 @@
     "mocha": "^10.4.0",
     "vue": "^3.4.27",
     "vue-esm-loader": "^1.0.0-alpha.1"
+  },
+  "dependencies": {
+    "@intlify/message-compiler": "^9.13.1"
   }
 }
