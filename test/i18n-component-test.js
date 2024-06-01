@@ -14,7 +14,8 @@ describe('The <i18n-t> component', function() {
 			const i18n = createI18n({
 				locale: 'nl',
 				fallbackLocale: 'en',
-				silentFallbackWarn: true,
+				missingWarn: false,
+				fallbackWarn: false,
 			});
 			return this.mount(TestComponent, {
 				global: {
