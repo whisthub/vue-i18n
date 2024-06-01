@@ -1,6 +1,6 @@
 # @whisthub/vue-i18n
 
-Simple internationalization plugin for Vue, modeled after vue-i18n
+Simple internationalization plugin for Vue, modeled after [vue-i18n](https://vue-i18n.intlify.dev/) that does support both Options and Composition API in the same project.
 
 ## Motivation
 
