@@ -30,6 +30,7 @@ describe('The <i18n-t> component', function() {
 		expect($('p.fragment').innerHTML).to.equal('Hello <span>Whisthub</span>!');
 		expect($('p.tag').innerHTML).to.equal('Hello <b>stranger</b>!');
 		expect($('p.named').innerHTML).to.equal('Hallo Whisthub!');
+		expect($('.slot').textContent).to.equal('Hello stranger!');
 
 	});
 

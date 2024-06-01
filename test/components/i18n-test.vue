@@ -19,12 +19,20 @@
 				<b>{{ count }}</b>
 			</template>
 		</i18n-t>
+		<slot-component class="slot">
+			<template #content>
+				<i18n-t keypath="greeting">
+					<span>stranger</span>
+				</i18n-t>
+			</template>
+		</slot-component>
 	</div>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue';
 import { useI18n } from '@whisthub/vue-i18n';
+import SlotComponent from './slot-component.vue';
 
 const { t } = useI18n({
 	messages: {
