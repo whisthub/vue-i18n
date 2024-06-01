@@ -4,13 +4,77 @@ Simple internationalization plugin for Vue, modeled after vue-i18n
 
 ## Motivation
 
-In the past we used [vue-i18n](https://www.npmjs.com/package/vue-i18n) for internationalization in Vue applications.
+In the past we used [vue-i18n](https://www.npmjs.com/package/vue-i18n) for internationalization in Vue applications - most notably on www.whisthub.com.
 However, since `v9`, you have to either choose between using it with the Composition API, or with the Options API.
 [You can't mix both](https://github.com/intlify/vue-i18n/discussions/605).
 
 This is unfortunate because it means you have to migrate your *entire* codebase *at once* to the Composition API.
 On top of that, Vue explicitly states that Options API isn't going anywhere, and that it's perfectly fine to have some components use the Options API, while others use the Composition API.
 
-This makes the new version of [vue-i18n](https://www.npmjs.com/package/vue-i18n) pretty much useless in large codebases and even an hindrance to migrating some components to the composition API as you can't migrate step by step.
+This makes the new version of [vue-i18n](https://www.npmjs.com/package/vue-i18n) pretty much useless in large codebases and even an hindrance to migrating some components to the composition API as you can't migrate step by step, even though there is no technical reason why both options and composition API couldn't be supported at the same time.
+After all, other Vue libraries such as [vue-router](https://npmjs.com/package/vue-router) or [pinia](https://www.npmjs.com/package/pinia) are all doing it.
 
-The goal of `@whistub/vue-i18n` is to provide the same basic functionality that [vue-i18n](https://www.npmjs.com/package/vue-i18n) offers, but by explicitly allowing it to be used both with the options and composition api.
+The goal of `@whistub/vue-i18n` is to provide the same *basic* functionality that [vue-i18n](https://www.npmjs.com/package/vue-i18n) offers, but by explicitly allowing it to be used both with the options and composition api.
+Note that the goal is **not** to have full feature-parity, just the basic features needed on www.whisthub.com.
+If you're having trouble with [vue-i18n](https://www.npmjs.com/package/vue-i18n), you might want to give this library a try as a replacement, but do it at your own risk!
+Some features you rely on might be missing and there can be subtle differences here and there.
+
+## Differences with `vue-i18n`
+
+As mentioned above, we don't aim to provide full feature parity with [vue-i18n](https://www.npmjs.com/package/vue-i18n), but the most common functionality is there.
+We also use the same message compiler [@intlify/message-compiler](https://www.npmjs.com/package/@intlify/message-compiler) under the hood, so the syntax of your messages is still the same as well.
+
+Nevertheless there are some important differences that you should be aware of, which are highlighted below.
+Most of these differences are the result of trying to make the library a bit simpler.
+
+### Messages are not precompiled
+
+In [vue-i18n](https://www.npmjs.com/package/vue-i18n), there are [two bundles](https://vue-i18n.intlify.dev/guide/advanced/optimization): one that includes the message compiler, and another one that doesn't.
+This module *never* compiles the messages at runtime and always assumes that the messages passed to `useI18n` are already compiled.
+This means that you either have to *precompile* them during your build step, or *explicitly* compile them at runtime.
+This can look like
+
+```js
+import compile from '@whisthub/vue-i18n/jit';
+import messages from './messages.json';
+
+const { t } = useI18n({ messages: jit(messages) });
+```
+
+We do recommend *precompiling* the messages though.
+For example, you can do this with a [Vite plugin](https://vitejs.dev/guide/api-plugin) that looks like
+
+```js
+import compile from '@whisthub/vue-i18n/compile';
+
+const plugin = {
+  id: '@whisthub/vue-i18n-compiler',
+  transform(source, id) {
+    if (id.endsWith('?i18n')) {
+      let messages = JSON.parse(source);
+      return compile(messages);
+    }
+  },
+};
+```
+
+We might provide an official plugin for this as part of this module in the future.
+
+
+That being said, messages with interpolation use [tagged template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) when compiled, which looks like
+```js
+const message = i => i`Hello ${'name'}!`;
+```
+This means that writing interpolated messages manually should be easy enough that you might not even need to compile them manually!
+Messages that don't use interpolation can just be strings.
+
+### No TypeScript
+
+I don't use TypeScript, and I'm not going to, so the library is not written in TypeScript.
+Sorry.
+
+### Notable missing features
+
+Some notable missing features are listed below.
+Some are omitted intentionally, while others might still be added in the future.
+PRs are welcome of course if you're missing a certain feature.
