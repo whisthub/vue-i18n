@@ -304,3 +304,28 @@ PRs are welcome of course if you're missing a certain feature.
  - No modifiers in messages.
  - No [custom `v-t` directive](https://vue-i18n.intlify.dev/guide/advanced/directive)
  - No support for [custom compilers](https://vue-i18n.intlify.dev/guide/advanced/format.html). You can still precompile your messages in different formats manually to either a string, a tagged function ``i => i`Hello ${'name'}!` `` or an array of strings and functions for pluralization.
+
+## Should you use this?
+
+It depends.
+My philosophy on Open Source is
+
+> Do with my code whatever you want, but don't expect me to do whatever you want.
+
+meaning that I needed this for myself and thought that maybe someone else could benefit from it.
+
+I do not intend to actively maintain this repository and add more features.
+You can look at this as a downside, but on the upside it also means that you don't have to fear a new version coming out every 2 months that requires you to upgrade your code to cope with breaking changes.
+We're all tired of that anyway, aren't we?
+
+That being said, if you feel like something is missing before you can use this yourself, you can definitely file a PR and I'll have a look at it.
+Just don't open an issue saying that there is something missing, and then expect me to implement it for you.
+
+Is it production ready?
+Well this module is being used in production on www.whisthub.com, so in a way it's production ready.
+
+## Can I support this project?
+
+You can, but you definitely don't have to.
+If you want, you can make a donation on www.whisthub.com/donate.
+It requires you to create an account though, but you can create one, make the donation and then request the account to be deleted afterwards via www.whisthub.com/settings.
