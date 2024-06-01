@@ -19,6 +19,96 @@ Note that the goal is **not** to have full feature-parity, just the basic featur
 If you're having trouble with [vue-i18n](https://www.npmjs.com/package/vue-i18n), you might want to give this library a try as a replacement, but do it at your own risk!
 Some features you rely on might be missing and there can be subtle differences here and there.
 
+## Usage
+
+`@whisthub/vue-i18n` can be used both with the [Options API](https://vuejs.org/guide/introduction#options-api) and the [Composition API](https://vuejs.org/guide/introduction#composition-api) in the same project. ✨
+Nothing needs to be configured for this to work, so no `{ legacy: true }` or `{ allowComposition: true }` as with [vue-i18n](https://vue-i18n.intlify.dev/guide/advanced/composition.html).
+
+```js
+import { createApp } from 'vue';
+import { createI18n } from '@whisthub/vue-i18n';
+
+const app = createApp();
+const i18n = createI18n({
+
+  // Globally available messages go here.
+  messages: {},
+
+  // Initial locale, can be changed at runtime.
+  locale: 'en',
+
+  // Fallback locale to use when a message is not found.
+  fallbackLocale: 'en',
+
+});
+app.use(i18n);
+```
+
+### Options API
+
+```vue
+<template>
+  <p>{{ $t('greeting', { name: 'John Doe' }) }}</p>
+  <i18n-t keypath="accept_terms">
+    <template #terms>
+      <a href="/terms">{{ $t('terms_and_conditions') }}</a>
+    </template>
+  </i18n->
+</template>
+
+<script>
+export default {
+  i18n: {
+    messages: {
+      en: {
+        greeting: i => i`Hello ${'name'}!`,
+        accept_terms: i => i`I accept the ${'terms'}.`,
+        terms: 'terms and conditions',
+      },
+      fr: {
+        greeting: i => i`Bonjour ${'name'}!`,
+      },
+    },
+  },
+};
+</script>
+```
+
+### Composition API
+
+```vue
+<template>
+  <p>{{ t('greeting', { name: 'John Doe' }) }}</p>
+  <i18n-t keypath="accept_terms">
+    <template #terms>
+      <a href="/terms">{{ $t('terms_and_conditions') }}</a>
+    </template>
+  </i18n->
+</template>
+
+<script setup>
+import { useI18n } form '@whisthub/vue-i18n';
+
+// $t is an alias for t, which makes it easier to migrate your components.
+const { t, $t } = useI18n({
+  messages: {
+    en: {
+      greeting: i => i`Hello ${'name'}!`,
+      accept_terms: i => i`I accept the ${'terms'}.`,
+      terms: 'terms and conditions',
+    },
+    fr: {
+      greeting: i => i`Bonjour ${'name'}!`,
+    },
+  },
+});
+</script>
+```
+
+Most of the options passed to `createI18n` and `useI18n` or `i18n: {}` are the same as for [vue-i18n](https://vue-i18n.intlify.dev/), so migrating should be failry straightforward.
+It also helps if you quickly want to try it out to see if this library is a viable alternative for [vue-i18n](https://vue-i18n.intlify.dev/).
+The most important differences are listed below.
+
 ## Differences with `vue-i18n`
 
 As mentioned above, we don't aim to provide full feature parity with [vue-i18n](https://www.npmjs.com/package/vue-i18n), but the most common functionality is there.
@@ -158,3 +248,8 @@ Sorry.
 Some notable missing features are listed below.
 Some are omitted intentionally, while others might still be added in the future.
 PRs are welcome of course if you're missing a certain feature.
+
+ - No [number](https://vue-i18n.intlify.dev/guide/essentials/number.html) or [date](https://vue-i18n.intlify.dev/guide/essentials/datetime) formatting.
+ - No modifiers in messages.
+ - No [custom `v-t` directive](https://vue-i18n.intlify.dev/guide/advanced/directive)
+ - No support for [custom compilers](https://vue-i18n.intlify.dev/guide/advanced/format.html). You can still precompile your messages in different formats manually to either a string, a tagged function ``i => i`Hello ${'name'}!` `` or an array of strings and functions for pluralization.
