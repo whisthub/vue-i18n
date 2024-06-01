@@ -22,7 +22,7 @@ Some features you rely on might be missing and there can be subtle differences h
 ## Differences with `vue-i18n`
 
 As mentioned above, we don't aim to provide full feature parity with [vue-i18n](https://www.npmjs.com/package/vue-i18n), but the most common functionality is there.
-We also use the same message compiler [@intlify/message-compiler](https://www.npmjs.com/package/@intlify/message-compiler) under the hood, so the syntax of your messages is still the same as well.
+We also use the same message compiler [@intlify/message-compiler](https://www.npmjs.com/package/@intlify/message-compiler) under the hood, so the [message syntax](https://vue-i18n.intlify.dev/guide/essentials/syntax) is still the same as well.
 
 Nevertheless there are some important differences that you should be aware of, which are highlighted below.
 Most of these differences are the result of trying to make the library a bit simpler.
@@ -66,7 +66,20 @@ That being said, messages with interpolation use [tagged template literals](http
 const message = i => i`Hello ${'name'}!`;
 ```
 This means that writing interpolated messages manually should be easy enough that you might not even need to compile them manually!
-Messages that don't use interpolation can just be strings.
+Messages that don't use interpolation can just be strings, and pluralized messages can be just arrays
+
+```js
+const messages = {
+  en: {
+    banana: [
+      'One banana',
+      i => i`${'n'} bananas`,
+    ],
+  },
+};
+```
+
+### 
 
 ### No TypeScript
 
