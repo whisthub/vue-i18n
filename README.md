@@ -175,7 +175,7 @@ const messages = {
 
 ### No nested messages
 
-[vue-i18n](https://www.npmjs.com/package/vue-i18n) allows you to use nested message and then access them with dot notation:
+[vue-i18n](https://www.npmjs.com/package/vue-i18n) allows you to use nested messages and then access them with dot notation:
 
 ```vue
 <template>
@@ -185,6 +185,7 @@ const messages = {
 <script setup>
 import { useI18n } from 'vue-i18n';
 
+// THIS WILL NOT WORK!!
 const { t } = useI18n({
   messages: {
     en: {
@@ -214,6 +215,8 @@ const { t } = useI18n({
 });
 ```
 
+Alternatively you could also do this at build time with a custom Vite plugin.
+
 ### Locale changing
 
 Since version v9, [vue-i18n](https://vue-i18n.intlify.dev/) has an extremely weird way of [changing the global locale](https://vue-i18n.intlify.dev/guide/essentials/scope#global-scope-1), for which the api is different when running in legacy mode:
@@ -236,6 +239,54 @@ const i18n = createI18n({
 
 // Change the global locale later on.
 i18n.locale = 'nl';
+```
+
+### The difference between `createI18n` and `useI18n`
+
+In [vue-i18n](https://vue-i18n.intlify.dev/) it's not always clear anymore when you're working with what.
+There's no clear terminology for the difference between the two, but let's call the result of
+```js
+const i18n = createI18n();
+```
+the *i18n root* and the result of
+```js
+const context = useI18n();
+```
+a *translation context*.
+
+The *i18n root* contains the configuration and acts as a "hub", just like `const app = createApp()` is for Vue.
+It's here that you change the global locale of your application - see above.
+
+A *translation context* is what you will be interacting with the most: it contains the `t` function used for translating messages.
+When using the options API, it's also available as `$i18n` in your templates, meaning that using `$i18n.$t` and `$t` in your templates are equivalent.
+
+You can get a reference to to the *i18n root* from a *translation context* as
+
+```js
+// Composition API
+const { i18n } = useI18n();
+
+// Options API
+export default {
+  created() {
+    const { i18n } = this.$i18n;
+  },
+};
+```
+
+So, if you want to change the global locale somewhere in your application, you could do it as
+
+```vue
+<template>
+  <select v-model="i18n.locale">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+  </select>
+</template>
+
+<script setup>
+const { i18n } = useI18n();
+</script>
 ```
 
 ### No TypeScript
