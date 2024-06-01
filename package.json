@@ -4,7 +4,8 @@
   "description": "Simple internationalization plugin for Vue, modeled after vue-i18n",
   "main": "lib/index.js",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./plugin-vite": "./lib/plugins/vite-plugin.js"
   },
   "imports": {
     "#lib/*": "./lib/*",
