@@ -322,7 +322,7 @@ That being said, if you feel like something is missing before you can use this y
 Just don't open an issue saying that there is something missing, and then expect me to implement it for you.
 
 Is it production ready?
-Well this module is being used in production on www.whisthub.com, so in a way it's production ready.
+Well this module is being used in production on www.whisthub.com, so in a way it's production ready, but I wouldn't run a nuclear power plant on it.
 
 ## Can I support this project?
 
