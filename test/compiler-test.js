@@ -68,13 +68,30 @@ describe('The compiler', function() {
 
 		});
 
+		it('an object with messages', function() {
+
+			let messages = {
+				en: {
+					greeting: 'Hello {name}!',
+				},
+				fr: {
+					text: 'Ceci est le contenu du texte',
+				},
+			};
+			let value = this.compile(messages);
+			expect(value).to.be.an('object');
+			expect(evaluate(value.en.greeting, { name: 'Whisthub' })).to.equal('Hello Whisthub!');
+			expect(evaluate(value.fr.text)).to.equal('Ceci est le contenu du texte');
+
+		});
+
 	}
 
 	describe('precompiler', function() {
 
 		before(function() {
 			this.compile = function(code) {
-				return vm.runInNewContext(compile(code));
+				return vm.runInNewContext(`(${compile(code)})`);
 			};
 		});
 
