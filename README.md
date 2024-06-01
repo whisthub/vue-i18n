@@ -175,7 +175,7 @@ const messages = {
 
 ### No nested messages
 
-[vue-i18n](https://www.npmjs.com/package/vue-i18n) allows you to use nested message and then access them with dot notation:
+[vue-i18n](https://www.npmjs.com/package/vue-i18n) allows you to use nested messages and then access them with dot notation:
 
 ```vue
 <template>
@@ -185,6 +185,7 @@ const messages = {
 <script setup>
 import { useI18n } from 'vue-i18n';
 
+// THIS WILL NOT WORK!!
 const { t } = useI18n({
   messages: {
     en: {
@@ -214,6 +215,8 @@ const { t } = useI18n({
 });
 ```
 
+Alternatively you could also do this at build time with a custom Vite plugin.
+
 ### Locale changing
 
 Since version v9, [vue-i18n](https://vue-i18n.intlify.dev/) has an extremely weird way of [changing the global locale](https://vue-i18n.intlify.dev/guide/essentials/scope#global-scope-1), for which the api is different when running in legacy mode:
@@ -238,6 +241,54 @@ const i18n = createI18n({
 i18n.locale = 'nl';
 ```
 
+### The difference between `createI18n` and `useI18n`
+
+In [vue-i18n](https://vue-i18n.intlify.dev/) it's not always clear anymore when you're working with what.
+There's no clear terminology for the difference between the two, but let's call the result of
+```js
+const i18n = createI18n();
+```
+the *i18n root* and the result of
+```js
+const context = useI18n();
+```
+a *translation context*.
+
+The *i18n root* contains the configuration and acts as a "hub", just like `const app = createApp()` is for Vue.
+It's here that you change the global locale of your application - see above.
+
+A *translation context* is what you will be interacting with the most: it contains the `t` function used for translating messages.
+When using the options API, it's also available as `$i18n` in your templates, meaning that using `$i18n.$t` and `$t` in your templates are equivalent.
+
+You can get a reference to to the *i18n root* from a *translation context* as
+
+```js
+// Composition API
+const { i18n } = useI18n();
+
+// Options API
+export default {
+  created() {
+    const { i18n } = this.$i18n;
+  },
+};
+```
+
+So, if you want to change the global locale somewhere in your application, you could do it as
+
+```vue
+<template>
+  <select v-model="i18n.locale">
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+  </select>
+</template>
+
+<script setup>
+const { i18n } = useI18n();
+</script>
+```
+
 ### No TypeScript
 
 I don't use TypeScript, and I'm not going to, so the library is not written in TypeScript.
@@ -250,6 +301,32 @@ Some are omitted intentionally, while others might still be added in the future.
 PRs are welcome of course if you're missing a certain feature.
 
  - No [number](https://vue-i18n.intlify.dev/guide/essentials/number.html) or [date](https://vue-i18n.intlify.dev/guide/essentials/datetime) formatting.
+ - No [custom pluralization](https://vue-i18n.intlify.dev/guide/essentials/pluralization.html#custom-pluralization). I only use English, French and Dutch, so I do not have the need for languages that have custom pluralization rules like Russian for example. I'm open to adding this if you need it, so PRs are welcome.
  - No modifiers in messages.
  - No [custom `v-t` directive](https://vue-i18n.intlify.dev/guide/advanced/directive)
  - No support for [custom compilers](https://vue-i18n.intlify.dev/guide/advanced/format.html). You can still precompile your messages in different formats manually to either a string, a tagged function ``i => i`Hello ${'name'}!` `` or an array of strings and functions for pluralization.
+
+## Should you use this?
+
+It depends.
+My philosophy on Open Source is
+
+> Do with my code whatever you want, but don't expect me to do whatever you want.
+
+meaning that I needed this for myself and thought that maybe someone else could benefit from it.
+
+I do not intend to actively maintain this repository and add more features.
+You can look at this as a downside, but on the upside it also means that you don't have to fear a new version coming out every 2 months that requires you to upgrade your code to cope with breaking changes.
+We're all tired of that anyway, aren't we?
+
+That being said, if you feel like something is missing before you can use this yourself, you can definitely file a PR and I'll have a look at it.
+Just don't open an issue saying that there is something missing, and then expect me to implement it for you.
+
+Is it production ready?
+Well this module is being used in production on www.whisthub.com, so in a way it's production ready, but I wouldn't run a nuclear power plant on it.
+
+## Can I support this project?
+
+You can, but you definitely don't have to.
+If you want, you can make a donation on www.whisthub.com/donate.
+It requires you to create an account though, but you can create one, make the donation and then request the account to be deleted afterwards via www.whisthub.com/settings.
