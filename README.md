@@ -122,7 +122,7 @@ const { t } = useI18n({
 
 ### Locale changing
 
-Since version v9, [vue-i18n] has an extremely weird way of [changing the global locale](https://vue-i18n.intlify.dev/guide/essentials/scope.html), for which the api is different when running in legacy mode:
+Since version v9, [vue-i18n](https://vue-i18n.intlify.dev/) has an extremely weird way of [changing the global locale](https://vue-i18n.intlify.dev/guide/essentials/scope#global-scope-1), for which the api is different when running in legacy mode:
 
 ```js
 // when vue-i18n is being used with legacy: false, note that i18n.global.locale is a ref, so we must set it via .value:
