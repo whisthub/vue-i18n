@@ -120,6 +120,30 @@ const { t } = useI18n({
 });
 ```
 
+### Locale changing
+
+Since version v9, [vue-i18n] has an extremely weird way of [changing the global locale](https://vue-i18n.intlify.dev/guide/essentials/scope.html), for which the api is different when running in legacy mode:
+
+```js
+// when vue-i18n is being used with legacy: false, note that i18n.global.locale is a ref, so we must set it via .value:
+i18n.global.locale.value = 'en'
+
+// otherwise - when using legacy: true, we set it like this:
+i18n.global.locale = 'en'
+```
+
+Enough of that, now you can just change the locale as
+
+```js
+import { createI18n } from '@whisthub/vue-i18n';
+const i18n = createI18n({
+  locale: 'en',
+});
+
+// Change the global locale later on.
+i18n.locale = 'nl';
+```
+
 ### No TypeScript
 
 I don't use TypeScript, and I'm not going to, so the library is not written in TypeScript.
