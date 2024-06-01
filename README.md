@@ -35,31 +35,35 @@ This means that you either have to *precompile* them during your build step, or 
 This can look like
 
 ```js
-import compile from '@whisthub/vue-i18n/jit';
+import jit from '@whisthub/vue-i18n/jit';
 import messages from './messages.json';
 
 const { t } = useI18n({ messages: jit(messages) });
 ```
 
 We do recommend *precompiling* the messages though.
-For example, you can do this with a [Vite plugin](https://vitejs.dev/guide/api-plugin) that looks like
+If you're using [Vite](https://vitejs.dev), we have an official plugin that can do this
 
 ```js
-import compile from '@whisthub/vue-i18n/compile';
+// # vite.config.js
+import vue from '@vitejs/plugin-vue';
+import i18nPlugin from '@whisthub/vue-i18n/plugin-vite';
 
-const plugin = {
-  id: '@whisthub/vue-i18n-compiler',
-  transform(source, id) {
-    if (id.endsWith('?i18n')) {
-      let messages = JSON.parse(source);
-      return compile(messages);
-    }
-  },
+export default {
+  plugins: [
+    vue(),
+    i18nPlugin({
+
+      // By default, include is set to precompile .i18n.json files, but you can 
+      // change this. For example, if you want to precompile yaml, you can set 
+      // it to /\.ya?ml$/, but in that case you have to make sure that you first 
+      // register a plugin that transforms yaml to json!
+      include: /\.i18n\.json$/,
+
+    }),
+  ],
 };
 ```
-
-We might provide an official plugin for this as part of this module in the future.
-
 
 That being said, messages with interpolation use [tagged template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) when compiled, which looks like
 ```js
