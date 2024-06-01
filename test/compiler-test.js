@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import parse from '#lib/compiler/parse.js';
 import compile from '#lib/compiler/compile.js';
 import jit from '#lib/compiler/jit.js';
-import { evaluate } from '#lib/create-translation.js';
+import { evaluate } from '#lib/create-context.js';
 
 describe('The parse function', function() {
 
