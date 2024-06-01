@@ -154,6 +154,21 @@ describe('The context factory', function() {
 
 		});
 
+		it('interpolates without a context', function() {
+
+			const i18n = this.setup({ locale: 'en' });
+			const { t } = this.ctx(i18n, {
+				messages: {
+					en: {
+						greeting: i => i`Hello ${'name'},`,
+					},
+				},
+			});
+
+			expect(t('greeting')).to.equal('Hello ,');
+
+		});
+
 	});
 
 });
