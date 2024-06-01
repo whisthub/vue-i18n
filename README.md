@@ -79,7 +79,46 @@ const messages = {
 };
 ```
 
-### 
+### No nested messages
+
+[vue-i18n](https://www.npmjs.com/package/vue-i18n) allows you to use nested message and then access them with dot notation:
+
+```vue
+<template>
+{{ t('nested.hello') }}
+</template>
+
+<script setup>
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n({
+  messages: {
+    en: {
+      nested: {
+        hello: 'Hello!',
+      },
+    },
+  },
+});
+</script>
+```
+
+This **does not work** with [@whisthub/vue-i18n].
+You can use something like [dot-object](https://www.npmjs.com/package/dot-object) to transform your messages if you truly need this:
+
+```js
+import dot from 'dot-object';
+
+const { t } = useI18n({
+  messages: {
+    en: dot.transform({
+      nested: {
+        hello: 'Hello!',
+      },
+    }),
+  },
+});
+```
 
 ### No TypeScript
 
