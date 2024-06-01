@@ -14,4 +14,12 @@ describe('The useI18n function', function() {
 
 	});
 
+	it('provides the root i81n instance', function() {
+
+		const root = createI18n();
+		const { i18n } = useI18n({ i18n: root });
+		expect(i18n).to.equal(root);
+
+	});
+
 });
