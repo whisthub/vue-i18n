@@ -32,13 +32,34 @@ const app = createApp();
 const i18n = createI18n({
 
   // Globally available messages go here.
-  messages: {},
+  messages: {
+    en: {
+      color: 'colour',
+      greeting: i => i`Hello ${'name'}!`,
+    },
+    'en-US': {
+      color: 'color',
+    },
+    fr: {
+      color: 'couleur',
+    },
+  },
 
   // Initial locale, can be changed at runtime.
   locale: 'en',
 
-  // Fallback locale to use when a message is not found.
+  // Fallback locale to use when a message is not found. Can be an array or 
+  // object as well.
   fallbackLocale: 'en',
+  fallbackLocale: ['en-US', 'de'],
+  fallbackLocale: {
+    it: ['fr-CH', 'fr'],
+    de: ['nl', 'en'],
+  },
+
+  // Set to false to disable warnings. Default to true.
+  missingWarn: true,
+  fallbackWarn: true,
 
 });
 app.use(i18n);
