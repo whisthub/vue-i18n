@@ -10,8 +10,8 @@ describe('The context factory', function() {
 		before(function() {
 			this.setup = function(opts) {
 				return createI18n({
-					silentTranslationWarn: true,
-					silentFallbackWarn: true,
+					missingWarn: false,
+					fallbackWarn: false,
 					...opts,
 				});
 			};
@@ -151,6 +151,42 @@ describe('The context factory', function() {
 				},
 			});
 			expect(t('greeting')).to.equal('Hello');
+
+		});
+
+		it('falls back from dialect and region', function() {
+
+			const i18n = this.setup({
+				locale: 'it-IT-venezian',
+				fallbackLocale: {
+					it: ['fr', 'en'],
+				},
+			});
+
+			const { t } = this.ctx(i18n, {
+				messages: {
+					it: {
+						greeting: 'Ciao!',
+						question: 'Come si chiama?',
+						bye: 'Arrividerci!',
+					},
+					'it-IT': {
+						greeting: 'Ciao bella!',
+						question: 'Come si chiama, bella?',
+					},
+					'it-IT-venezian': {
+						greeting: 'Ciao, ciao!',
+					},
+					fr: {
+						the_end: 'Point final.',
+					},
+				},
+			});
+
+			expect(t('greeting')).to.equal('Ciao, ciao!');
+			expect(t('question')).to.equal('Come si chiama, bella?');
+			expect(t('bye')).to.equal('Arrividerci!');
+			expect(t('the_end')).to.equal('Point final.');
 
 		});
 
