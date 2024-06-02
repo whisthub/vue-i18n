@@ -32,4 +32,11 @@ describe('The options api', function() {
 
 	});
 
+	it('binds $t and $tc to the component', function() {
+
+		let { vm } = this.setup();
+		expect(vm.translate('welcome')).to.equal('Welcome!');
+
+	});
+
 });
