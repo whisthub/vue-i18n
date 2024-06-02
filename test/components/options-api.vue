@@ -27,5 +27,11 @@ export default {
 			name: 'Whisthub',
 		};
 	},
+	methods: {
+		translate(...args) {
+			const { $t } = this;
+			return $t(...args);
+		},
+	},
 };
 </script>
