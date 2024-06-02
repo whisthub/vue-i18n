@@ -176,6 +176,22 @@ export default {
 };
 ```
 
+The plugin also automatically handles `<i18n>` blocks in Vue SFC's
+```vue
+<template>
+  <p>{{ $t('greeting') }}</p>
+</template>
+
+<i18n>
+{
+  "en": {
+    "greeting": "Hello"
+  }
+}
+</i18n>
+```
+Note however that if you're using yaml for the messages, you need to setup a loader that handles the transformation from yaml to json and make sure it runs *before* the `i18nPlugin`.
+
 That being said, messages with interpolation use [tagged template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) when compiled, which looks like
 ```js
 const message = i => i`Hello ${'name'}!`;
