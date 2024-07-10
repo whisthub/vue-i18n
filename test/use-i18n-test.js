@@ -14,7 +14,20 @@ describe('The useI18n function', function() {
 
 	});
 
-	it('provides the root i81n instance', function() {
+	it('allows creating isolated contexts, not tied to the component', function() {
+
+		const i18n = createI18n();
+		const instance = {};
+		const local = useI18n({ i18n, instance });
+		const one = useI18n({ scope: 'isolated', i18n, instance });
+		const two = useI18n({ scope: 'isolated', i18n, instance });
+		expect(one).to.not.equal(two);
+		expect(local).to.not.equal(one);
+		expect(local).to.not.equal(two);
+
+	});
+
+	it('provides the root i18n instance', function() {
 
 		const root = createI18n();
 		const { i18n } = useI18n({ i18n: root });
