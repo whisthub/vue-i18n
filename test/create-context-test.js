@@ -205,6 +205,14 @@ describe('The context factory', function() {
 
 		});
 
+		it('falls back to the keys if no locale has been set', function() {
+
+			const i18n = this.setup();
+			const { t } = this.ctx(i18n);
+			expect(t('no_locale')).to.equal('no_locale');
+
+		});
+
 	});
 
 });
