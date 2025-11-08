@@ -1,9 +1,9 @@
 import type { App } from 'vue';
-import type { Messages } from './shared.d.ts';
+import type { Messages, Language } from './shared.d.ts';
 
 export type CreateI18nOptions = {
 	locale: string;
-	fallbackLocale: string;
+	fallbackLocale: string | string[] | Record<string, string | string[]>;
 	messages?: Record<string, Language>;
 	missingWarn?: boolean;
 	fallbackWarn?: boolean;
