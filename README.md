@@ -326,11 +326,6 @@ const { i18n } = useI18n();
 </script>
 ```
 
-### No TypeScript
-
-I don't use TypeScript, and I'm not going to, so the library is not written in TypeScript.
-Sorry.
-
 ### Notable missing features
 
 Some notable missing features are listed below.
