@@ -45,5 +45,8 @@
   },
   "dependencies": {
     "@intlify/message-compiler": "^11.1.12"
-  }
+  },
+  "files": [
+    "lib/*"
+  ]
 }
